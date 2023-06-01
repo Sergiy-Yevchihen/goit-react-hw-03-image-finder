@@ -14,6 +14,6 @@ export const Overlay = styled.div`
 `;
 
 export const ModalDiv = styled.div`
-  max-width: calc(50vw - 48px);
-  max-height: calc(50vh - 24px);
+  max-width: calc(90vw - 48px);
+  max-height: calc(100vh - 24px);
 `;
