@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
- import Searchbar from './Searchbar/Searchbar';
-// import ImageGallery from './ImageGallery/ImageGallery';
+import Searchbar from './Searchbar/Searchbar';
+import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
- import Modal from './Modal/Modal';
-// import Loader from './Loader/Loader';
+import Modal from './Modal/Modal';
+import Loader from './Loader/Loader';
 import { AppDiv } from './App.styled';
- import { ToastContainer, Flip } from 'react-toastify';
- import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
@@ -43,9 +43,7 @@ class App extends Component {
         const { hits, totalHits } = response.data;
 
         if (hits.length === 0) {
-          return alert (
-            'Sorry, there are no images matching your request...'
-          );
+          return alert('Sorry, there are no images matching your request...');
         }
 
         const modifiedHits = hits.map(
@@ -98,8 +96,7 @@ class App extends Component {
   render() {
     const { images, isLoading, error, showModal, selectedImage, isLastPage } =
       this.state;
-      
-      
+
     return (
       <AppDiv>
         {<ToastContainer transition={Flip} />}
@@ -107,9 +104,9 @@ class App extends Component {
 
         {error && <p>Error: {error}</p>}
 
-        {/* <ImageGallery images={images} onItemClick={this.handleImageClick} /> */}
+        <ImageGallery images={images} onItemClick={this.handleImageClick} />
 
-        {/* {isLoading && <Loader />} */}
+        {isLoading && <Loader />}
 
         {!isLoading && images.length > 0 && !isLastPage && (
           <Button onClick={this.fetchImages} />
