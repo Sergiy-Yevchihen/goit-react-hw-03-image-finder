@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import Searchbar from './Searchbar/Searchbar';
+ import Searchbar from './Searchbar/Searchbar';
 // import ImageGallery from './ImageGallery/ImageGallery';
-// import Button from './Button/Button';
-// import Modal from './Modal/Modal';
+import Button from './Button/Button';
+ import Modal from './Modal/Modal';
 // import Loader from './Loader/Loader';
 import { AppDiv } from './App.styled';
-// import { ToastContainer, toast, Flip } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+ import { ToastContainer, Flip } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
@@ -43,8 +43,8 @@ class App extends Component {
         const { hits, totalHits } = response.data;
 
         if (hits.length === 0) {
-          return alert('Sorry, there are no images matching your request...'
-         
+          return alert (
+            'Sorry, there are no images matching your request...'
           );
         }
 
@@ -96,19 +96,20 @@ class App extends Component {
   };
 
   render() {
-    // const { images, isLoading, error, showModal, selectedImage, isLastPage } =
-    //   this.state;
-// transition={Flip}
+    const { images, isLoading, error, showModal, selectedImage, isLastPage } =
+      this.state;
+      
+      
     return (
       <AppDiv>
-        {/* { <ToastContainer  /> } */}
-        {/* <Searchbar onSubmit={this.handleSearchSubmit} />
+        {<ToastContainer transition={Flip} />}
+        <Searchbar onSubmit={this.handleSearchSubmit} />
 
         {error && <p>Error: {error}</p>}
 
-        <ImageGallery images={images} onItemClick={this.handleImageClick} />
+        {/* <ImageGallery images={images} onItemClick={this.handleImageClick} /> */}
 
-        {isLoading && <Loader />}
+        {/* {isLoading && <Loader />} */}
 
         {!isLoading && images.length > 0 && !isLastPage && (
           <Button onClick={this.fetchImages} />
@@ -116,7 +117,7 @@ class App extends Component {
 
         {showModal && (
           <Modal image={selectedImage} onClose={this.handleModalClose} />
-        )}  */}
+        )}
       </AppDiv>
     );
   }
