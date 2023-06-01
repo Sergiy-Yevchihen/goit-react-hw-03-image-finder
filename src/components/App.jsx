@@ -31,7 +31,7 @@ class App extends Component {
 
   fetchImages = () => {
     const { query, page } = this.state;
-    const API_KEY = '34187261-edb3bdfe414ee3b7adebeccc5';
+    const API_KEY = '34881387-b4ef6ac793e52587d6a65ce3b';
 
     this.setState({ isLoading: true });
 
@@ -43,10 +43,9 @@ class App extends Component {
         const { hits, totalHits } = response.data;
 
         if (hits.length === 0) {
-          return toast('Sorry, there are no images matching your request...', {
-            position: toast.POSITION.TOP_CENTER,
-            icon: '🤔',
-          });
+          return alert('Sorry, there are no images matching your request...'
+         
+          );
         }
 
         const modifiedHits = hits.map(
@@ -102,7 +101,7 @@ class App extends Component {
 
     return (
       <AppDiv>
-        <ToastContainer transition={Flip} />
+        {/* <ToastContainer transition={Flip} />
         <Searchbar onSubmit={this.handleSearchSubmit} />
 
         {error && <p>Error: {error}</p>}
@@ -117,7 +116,7 @@ class App extends Component {
 
         {showModal && (
           <Modal image={selectedImage} onClose={this.handleModalClose} />
-        )}
+        )} */}
       </AppDiv>
     );
   }
