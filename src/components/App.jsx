@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Searchbar from './Searchbar/Searchbar';
-import ImageGallery from './ImageGallery/ImageGallery';
-import Button from './Button/Button';
-import Modal from './Modal/Modal';
-import Loader from './Loader/Loader';
-import { AppDiv } from './App.syled';
-import { ToastContainer, toast, Flip } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import Searchbar from './Searchbar/Searchbar';
+// import ImageGallery from './ImageGallery/ImageGallery';
+// import Button from './Button/Button';
+// import Modal from './Modal/Modal';
+// import Loader from './Loader/Loader';
+import { AppDiv } from './App.styled';
+// import { ToastContainer, toast, Flip } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
@@ -96,13 +96,13 @@ class App extends Component {
   };
 
   render() {
-    const { images, isLoading, error, showModal, selectedImage, isLastPage } =
-      this.state;
-
+    // const { images, isLoading, error, showModal, selectedImage, isLastPage } =
+    //   this.state;
+// transition={Flip}
     return (
       <AppDiv>
-        {/* <ToastContainer transition={Flip} />
-        <Searchbar onSubmit={this.handleSearchSubmit} />
+        {/* { <ToastContainer  /> } */}
+        {/* <Searchbar onSubmit={this.handleSearchSubmit} />
 
         {error && <p>Error: {error}</p>}
 
@@ -116,7 +116,7 @@ class App extends Component {
 
         {showModal && (
           <Modal image={selectedImage} onClose={this.handleModalClose} />
-        )} */}
+        )}  */}
       </AppDiv>
     );
   }
