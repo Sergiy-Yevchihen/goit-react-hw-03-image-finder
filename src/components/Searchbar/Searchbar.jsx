@@ -19,15 +19,16 @@ class Searchbar extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    if (!this.state.query.trim()) {
+    if (this.state.query.trim() === '') {
+      alert('Please enter something');
       return;
     }
     this.props.onSubmit(this.state.query);
-    // this.setState({ query: '' });
+     this.setState({ query: '' });
   };
 
   render() {
-    // const { query } = this.state;
+    //  const { query } = this.state;
 
     return (
       <SearchBarHead>
@@ -38,6 +39,8 @@ class Searchbar extends Component {
 
           <SearchFormInput
             type="text"
+            id="searchInput" 
+            name="searchInput"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
