@@ -17,7 +17,7 @@ const ImageGalleryItem = ({ image, onItemClick }) => {
 ImageGalleryItem.propTypes = {
   image: PropTypes.shape({
     webformatURL: PropTypes.string.isRequired,
-    tags: PropTypes.string.isRequired, // Assuming 'tags' is a property of the image object
+    tags: PropTypes.string.isRequired, 
   }).isRequired,
   onItemClick: PropTypes.func.isRequired,
 };

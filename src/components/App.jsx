@@ -63,6 +63,7 @@ class App extends Component {
         }));
       })
       .catch(error => {
+        alert('Sorry something went wrong.');
         this.setState({ error: error.message });
       })
       .finally(() => {

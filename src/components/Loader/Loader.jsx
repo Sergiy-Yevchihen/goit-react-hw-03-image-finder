@@ -1,18 +1,18 @@
 import React from 'react';
-import { Vortex } from 'react-loader-spinner';
+import { Circles } from 'react-loader-spinner';
 import { LoadDiv } from './Loader.styled';
 
 const Loader = () => {
   return (
     <LoadDiv>
-      <Vortex
-        visible={true}
+      <Circles
         height="80"
         width="80"
-        ariaLabel="vortex-loading"
+        color="#4fa94d"
+        ariaLabel="circles-loading"
         wrapperStyle={{}}
-        wrapperClass="vortex-wrapper"
-        colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+        wrapperClass=""
+        visible={true}
       />
     </LoadDiv>
   );

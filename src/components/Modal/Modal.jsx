@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import { Overlay, ModalDiv } from './Modal.styled';
+import { Overlay, ModalDiv, ModalDivImg } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-//class Modal extends Component 
+
  export default class Modal extends Component {
   static propTypes = {
     selectedImage: PropTypes.string,
@@ -40,7 +40,10 @@ const modalRoot = document.querySelector('#modal-root');
     return createPortal(
       <Overlay onClick={this.handleClick}>
         <ModalDiv>
-          <img src={image.largeImageURL} alt={image.tags} />
+          <ModalDivImg img src={image.largeImageURL} alt={image.tags}/>
+            {/* < /> */}
+          {/* </ModalDivImg> */}
+          
         </ModalDiv>
       </Overlay>,
       modalRoot
