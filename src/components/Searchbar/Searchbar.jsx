@@ -23,8 +23,11 @@ class Searchbar extends Component {
       alert('Please enter something');
       return;
     }
+    
     this.props.onSubmit(this.state.query);
-     this.setState({ query: '' });
+    this.setState({ query:'' });
+     // Скидаємо стан до початкового значення
+    
   };
 
   render() {
@@ -46,6 +49,7 @@ class Searchbar extends Component {
             placeholder="Search images and photos"
             value={this.state.query}
             onChange={this.handleChange}
+            
           />
         </SearchForm>
       </SearchBarHead>
