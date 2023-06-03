@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import * as API from '../services/Api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import Loader from './Loader/Loader';
 import { AppDiv } from './App.styled';
-import { ToastContainer, Flip } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
@@ -19,66 +19,58 @@ class App extends Component {
     showModal: false,
     selectedImage: null,
     isLastPage: false,
+    totalPages: 0,
   };
 
-  componentDidUpdate(_prevProps, prevState) {
-    if (prevState.query !== this.state.query) {
-      this.setState({ images: [], page: 1, isLastPage: false }, () => {
-        this.fetchImages();
-      });
+  componentDidUpdate(_, prevState) {
+    if (
+      prevState.query !== this.state.query ||
+      prevState.page !== this.state.page
+    ) {
+      this.fetchImages();
     }
   }
 
-  fetchImages = () => {
-    const { query, page } = this.state;
-    const API_KEY = '34881387-b4ef6ac793e52587d6a65ce3b';
-
-    this.setState({ isLoading: true });
-
-    axios
-      .get(
-        `https://pixabay.com/api/?q=${query}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
-      )
-      .then(response => {
-        const { hits, totalHits } = response.data;
-
-        if (hits.length === 0) {
-          return alert('Sorry, there are no images matching your request...');
-        }
-
-        const modifiedHits = hits.map(
-          ({ id, tags, webformatURL, largeImageURL }) => ({
-            id,
-            tags,
-            webformatURL,
-            largeImageURL,
-          })
-        );
-
-        this.setState(prevState => ({
-          images: [...prevState.images, ...modifiedHits],
-          page: prevState.page + 1,
-          isLastPage:
-            prevState.images.length + modifiedHits.length >= totalHits,
-        }));
-      })
-     
-      .catch(error => {
-        // alert('Sorry something went wrong.');
-        this.setState({ error: error.message });
-        
-      })
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   };
 
- 
+  fetchImages = async () => {
+    const { query, page } = this.state;
+
+    try {
+      this.setState({ isLoading: true });
+      const data = await API.getImages(query, page);
+
+      if (data.hits.length === 0) {
+        toast.error('Sorry, there are no images matching your request...');
+        return;
+      }
+
+      const normalizedImages = API.normalizedImages(data.hits);
+
+      this.setState(prevState => ({
+        images: [...prevState.images, ...normalizedImages],
+        isLastPage:
+          prevState.images.length + normalizedImages.length >= data.totalHits,
+        error: null,
+        totalPages: Math.ceil(data.totalHits / API.perPage),
+      }));
+    } catch (error) {
+      this.setState({ error: error.message });
+      toast.error('Sorry, something went wrong.');
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  };
 
   handleSearchSubmit = query => {
     if (this.state.query === query) {
       return;
     }
+
     this.setState({
       query: query,
       page: 1,
@@ -90,12 +82,10 @@ class App extends Component {
 
   handleImageClick = image => {
     this.setState({ selectedImage: image, showModal: true });
-    document.body.style.overflow = 'hidden';
   };
 
   handleModalClose = () => {
     this.setState({ selectedImage: null, showModal: false });
-    document.body.style.overflow = 'auto';
   };
 
   render() {
@@ -104,7 +94,11 @@ class App extends Component {
 
     return (
       <AppDiv>
-        {<ToastContainer transition={Flip} />}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={true}
+        />
         <Searchbar onSubmit={this.handleSearchSubmit} />
 
         {error && <p>Error: {error}</p>}
@@ -114,7 +108,7 @@ class App extends Component {
         {isLoading && <Loader />}
 
         {!isLoading && images.length > 0 && !isLastPage && (
-          <Button onClick={this.fetchImages} />
+          <Button onClick={this.loadMore} />
         )}
 
         {showModal && (
@@ -126,5 +120,3 @@ class App extends Component {
 }
 
 export default App;
-
-
